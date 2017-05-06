@@ -1,0 +1,17 @@
+{
+  "name": "sleeplight",
+  "version": "0.0.1",
+  "description": "Software to show a different LED light on an RPi based on time of day.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Phil DeJarnett",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "express": "^4.15.2",
+    "node-schedule": "^1.2.1",
+    "wiring-pi": "^2.2.1"
+  }
+}
