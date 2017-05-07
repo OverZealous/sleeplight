@@ -1,13 +1,13 @@
 'use strict';
 
+const ENV = process.env.npm_lifecycle_event;
+const isProd = ENV === 'build';
+
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const extractCSS = new ExtractTextPlugin('[name].bundle.css');
 const path = require('path');
-const ENV = process.env.npm_lifecycle_event;
-const isProd = ENV === 'build';
 
 module.exports = (function makeWebpackConfig() {
 	const config = {};
@@ -23,6 +23,8 @@ module.exports = (function makeWebpackConfig() {
 		chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
 	};
 
+	const extractCSS = new ExtractTextPlugin(isProd ? '[name].[contenthash].css' : '[name].bundle.css');
+
 	if(isProd) {
 		config.devtool = 'source-map';
 	} else {
@@ -32,6 +34,7 @@ module.exports = (function makeWebpackConfig() {
 	config.resolve = {
 		modules: [
 			'node_modules',
+			'client-src/public/',
 		]
 	};
 
@@ -43,15 +46,13 @@ module.exports = (function makeWebpackConfig() {
 		}, {
 			test: /\.less$/,
 			use: extractCSS.extract([
-				'css-loader',
 				{
-					loader: 'pleeease-loader',
+					loader: 'css-loader',
 					options: {
-						autoprefixer: { browsers: ["last 4 versions", "ios 6"] },
-						minifier: true,
-						sourcemaps: true,
+						importLoaders: 1,
 					},
 				},
+				'postcss-loader',
 				'less-loader',
 			]),
 		}, {

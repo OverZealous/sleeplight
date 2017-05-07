@@ -12,10 +12,8 @@ const port = process.env.PORT || 8000;
 
 const router = express.Router();
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
-});
+require('./api/lights').init(router);
+require('./api/timers').init(router);
 
 app.use('/api', router);
 
