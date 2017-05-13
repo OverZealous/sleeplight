@@ -20,7 +20,7 @@ if(!data) {
 }
 
 function save() {
-	return fs.writeFileAsync(dataFile, JSON.stringify(data), { mode: 0o777 });
+	return fs.writeFileAsync(dataFile, JSON.stringify(data, null, 4), { mode: 0o777 });
 }
 
 Object.defineProperties(data, {

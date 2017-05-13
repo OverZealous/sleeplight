@@ -1,4 +1,6 @@
 {
+	"parent": "mom",
+	"light": "off",
 	"timers": [
 		{ "schedule": "0 0 7 * * 1-5", "state": "yellow" },
 		{ "schedule": "0 30 7 * * 1-5", "state": "green" },

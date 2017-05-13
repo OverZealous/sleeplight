@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 const dataStore = require('../lib/data-store');
 const lights = require('../lib/lights');
 const ValidationError = require('../lib/ValidationError');
+const NotFoundError = require('../lib/NotFoundError');
 
 if(dataStore.timers) {
 	dataStore.timers.forEach((t, index) => t.id = index);
@@ -48,7 +49,7 @@ let timers = module.exports = {
 		let index = +id;
 		let timer = timers.list[index];
 		if(isNaN(index) || index % 1 || index < 0 || !timer) {
-			return null;
+			throw new NotFoundError(`Timer not found for id "${id}"`);
 		}
 		return timer;
 	},
@@ -69,28 +70,20 @@ let timers = module.exports = {
 		// TODO: prevent collisions
 		// TODO: re-schedule timer
 		let timer = timers.get(id);
-		if(timer) {
-			return Promise.resolve()
-				.then(() => {
-					let newData = validate(changes, false);
-					Object.assign(timer, newData);
-					return dataStore.save()
-						.then(() => timer);
-				});
-		} else {
-			return Promise.reject(null);
-		}
+		return Promise.resolve()
+			.then(() => {
+				let newData = validate(changes, false);
+				Object.assign(timer, newData);
+				return dataStore.save()
+					.then(() => timer);
+			});
 	},
 	remove(id) {
 		let timer = timers.get(id);
-		if(timer) {
-			// TODO: unschedule timer
-			let index = +id;
-			timers.list.splice(index);
-			return dataStore.save()
-				.then(() => timer);
-		} else {
-			return Promise.reject(null);
-		}
+		// TODO: unschedule timer
+		let index = +id;
+		timers.list.splice(index);
+		return dataStore.save()
+			.then(() => timer);
 	},
 };

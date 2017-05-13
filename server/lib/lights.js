@@ -1,4 +1,7 @@
+const dataStore = require('./data-store');
 const Promise = require('bluebird');
+const ValidationError = require('./ValidationError');
+
 const STATES = [
 	{ id: 'off', label: 'Off', color: '#333' },
 	{ id: 'red', label: 'Red', color: '#A00' },
@@ -9,7 +12,10 @@ const STATES = [
 const STATE_MAP = {};
 STATES.forEach(s => STATE_MAP[s.id] = s);
 
-let lastState = STATE_MAP.off;
+let lastState = STATE_MAP[dataStore.light];
+if(!lastState) {
+	lastState = STATE_MAP.off;
+}
 
 module.exports = {
 	STATES,
@@ -20,12 +26,15 @@ module.exports = {
 			.then(() => {
 				let foundState = !!state && STATES.find(s => s.id === state || s.id === state.id);
 				if(!foundState) {
-					throw new Error('Unable to find state: ' + JSON.stringify(state));
+					throw new ValidationError('Unable to find state: ' + JSON.stringify(state));
 				}
+
 				// TODO: handle the wiring changes
 				console.log("disabling state ", lastState.label);
 				lastState = foundState;
 				console.log("turning on state ", lastState.label);
+
+				dataStore.set('light', lastState.id);
 
 				return lastState;
 			});

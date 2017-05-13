@@ -3,7 +3,7 @@ const lights = require('../lib/lights');
 function sendState(res) {
 	const lightsData = {
 		lightStates: lights.STATES,
-		currentState: lights.currentState,
+		currentState: lights.currentState.id,
 	};
 	res.json(lightsData);
 }
@@ -13,8 +13,9 @@ module.exports.init = (router) => {
 		sendState(res);
 	});
 
-	router.post('/lights/:state', (req, res) => {
+	router.post('/lights/:state', (req, res, next) => {
 		lights.setState(req.params.state)
-			.then(() => sendState(res));
+			.then(() => sendState(res))
+			.catch(next);
 	});
 };
