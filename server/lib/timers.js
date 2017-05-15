@@ -38,6 +38,15 @@ function validate(timerData, isNew) {
 }
 
 let timers = module.exports = {
+
+	get enabled() {
+		return !!dataStore.timersEnabled;
+	},
+
+	set enabled(newVal) {
+		dataStore.set('timersEnabled', !!newVal);
+	},
+
 	get list() {
 		if(!dataStore.timers) {
 			dataStore.set('timers', []);

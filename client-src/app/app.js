@@ -2,9 +2,9 @@ import '../styles/main.less';
 import angular from 'angular';
 import './utils/dev-tools';
 
-import testComp from './components/test/test.js';
+import currentConfig from './components/current-config/current-config';
 
 angular
 	.module('sleeplight', [
-		testComp.name,
+		currentConfig.name,
 	]);

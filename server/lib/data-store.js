@@ -2,21 +2,18 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs'));
 const path = require('path');
-let data = null;
+const data = require('../default-data.json');
 
 const dataFile = path.join(__dirname, '..', 'data.json');
 
 const exists = fs.existsSync(dataFile);
 if(exists) {
 	try {
-		data = require(dataFile);
+		Object.assign(data, require(dataFile));
 	} catch(ex) {
 		console.log('ERROR: Bad Data File');
 		fs.unlinkSync(dataFile);
 	}
-}
-if(!data) {
-	data = require('../default-data.json');
 }
 
 function save() {

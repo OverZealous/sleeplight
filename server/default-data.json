@@ -1,14 +1,13 @@
 {
 	"parent": "mom",
 	"light": "off",
+	"timersEnabled": true,
 	"timers": [
 		{ "schedule": "0 0 7 * * 1-5", "state": "yellow" },
 		{ "schedule": "0 30 7 * * 1-5", "state": "green" },
 		{ "schedule": "0 0 8 * * 1-5", "state": "off" },
 		{ "schedule": "0 30 7 * * 6,7", "state": "yellow" },
 		{ "schedule": "0 30 8 * * 6,7", "state": "green" },
-		{ "schedule": "0 30 9 * * 6,7", "state": "off" },
-		{ "schedule": "0 0 8 * * *", "state": "yellow" },
-		{ "schedule": "0 30 8 * * *", "state": "red" }
+		{ "schedule": "0 30 9 * * 6,7", "state": "off" }
 	]
 }

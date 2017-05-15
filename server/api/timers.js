@@ -4,15 +4,21 @@ const NotFoundError = require('../lib/NotFoundError');
 
 module.exports.init = (router) => {
 
+	function sendTimers(res) {
+		res.json({
+			enabled: timers.enabled, timers: timers.list
+		});
+	}
+
 	function sendTimer(res, id) {
 		res.json({
-			data: timers.get(id),
+			timer: timers.get(id),
 		});
 	}
 
 	router.route('/timers')
 		.get((req, res) => {
-			res.json({ data: timers.list });
+			sendTimers(res);
 		})
 		.post((req, res, next) => {
 			timers.add(req.body)
@@ -20,6 +26,18 @@ module.exports.init = (router) => {
 					sendTimer(res, timer.id);
 				})
 				.catch(next);
+		});
+
+	router.route('/timers/enable')
+		.post((req, res) => {
+			timers.enabled = true;
+			sendTimers(res);
+		});
+
+	router.route('/timers/disable')
+		.post((req, res) => {
+			timers.enabled = false;
+			sendTimers(res);
 		});
 
 	router.route('/timers/:timerId')
