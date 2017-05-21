@@ -39,31 +39,50 @@ module.exports = (function makeWebpackConfig() {
 	};
 
 	config.module = {
-		loaders: [{
-			test: /\.js$/,
-			use: ['ng-annotate-loader', 'babel-loader'],
-			exclude: /node_modules/
-		}, {
-			test: /\.less$/,
-			use: extractCSS.extract([
-				{
-					loader: 'css-loader',
-					options: {
-						importLoaders: 1,
+		loaders: [
+			{
+				test: /\.js$/,
+				use: ['ng-annotate-loader', 'babel-loader'],
+				exclude: /node_modules/
+			},
+			{
+				test: /\.less$/,
+				use: extractCSS.extract([
+					{
+						loader: 'css-loader',
+						options: {
+							importLoaders: 1,
+						},
 					},
-				},
-				'postcss-loader',
-				'less-loader',
-			]),
-		}, {
-			test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-			use: ['file-loader'],
-		}, {
-			test: /\.tpl.html$/,
-			use: [
-				'html-loader'
-			],
-		}]
+					'postcss-loader',
+					'less-loader',
+				]),
+			},
+			{
+				test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot)$/,
+				use: ['file-loader'],
+			},
+			{
+				test: /\.svg$/,
+				use: [
+					'file-loader',
+					{
+						loader: 'svgo-loader',
+						options: {
+							plugins: [
+								{ removeTitle: true },
+							]
+						}
+					}
+				],
+			},
+			{
+				test: /\.tpl.html$/,
+				use: [
+					'html-loader'
+				],
+			}
+		]
 	};
 
 	config.plugins = [

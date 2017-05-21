@@ -2,13 +2,11 @@
 
 .light-mode, .parent-mode {
 	display: flex;
-	justify-content: space-around;
-
-	margin: 0 auto 20px;
-	max-width: 320px;
+	justify-content: center;
 
 	.light {
 		flex: 0 1 auto;
+		margin: 10px;
 
 		input {
 			width: 0;
@@ -25,16 +23,55 @@
 			border-radius: 50%;
 			position: relative;
 			opacity: .25;
-			border: 1px solid @border-color;
+			border: 2px solid transparent;
 			transition: all .25s ease-in-out;
+
+			text-align: center;
+			line-height: 44px;
+			overflow: hidden;
+		}
+
+		&.light-off, &.parent {
+			label > span {
+				display: inline-block;
+				width: 44px;
+				height: 44px;
+				background-repeat: no-repeat;
+				background-size: contain;
+			}
+		}
+
+		&.light-off label > span {
+			background-image: url("../../../public/images/off.svg");
+			background-position: 50% 2px;
+		}
+
+		&.parent-mom label > span {
+			background-image: url("../../../public/images/mom.svg");
+		}
+
+		&.parent-dad label > span {
+			background-image: url("../../../public/images/dad.svg");
 		}
 
 		input:checked + label {
 			opacity: 1;
 		}
 
-		input:not(:checked) + label {
+		&.light-off input + label {
+			border: 2px solid @border-color;
+		}
+		&.light-off input:checked + label {
+			border-color: fade(@border-color, 50%);
+		}
+
+		input:not(:checked) + label,
+		&.light-off input:checked + label {
 			box-shadow: none !important;
 		}
 	}
+}
+
+.parent-mode.disabled .light input:checked + label {
+	opacity: .25;
 }
