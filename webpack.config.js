@@ -66,15 +66,13 @@ module.exports = (function makeWebpackConfig() {
 		}]
 	};
 
-	config.plugins = [];
-
-	config.plugins.push(
+	config.plugins = [
 		extractCSS,
 		new HtmlWebpackPlugin({
 			template: './client-src/public/index.html',
 			inject: 'body'
-		})
-	);
+		}),
+	];
 
 	if(isProd) {
 		config.plugins.push(
@@ -99,7 +97,11 @@ module.exports = (function makeWebpackConfig() {
 			'/api': {
 				target: 'http://localhost:8000',
 				secure: false,
-			}
+			},
+			'/socket.io': {
+				target: 'http://localhost:8000',
+				secure: false,
+			},
 		},
 	};
 

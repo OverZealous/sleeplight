@@ -1,5 +1,7 @@
-const express = require('express');        // call express
-const app = express();                 // define our app using express
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
+require('./lib/sockets').init(server);
 const bodyParser = require('body-parser');
 const path = require('path');
 const ValidationError = require('./lib/ValidationError');
@@ -38,5 +40,6 @@ app.use(function errorHandler(err, req, res, next) {
 	}
 });
 
-app.listen(port);
-console.log('Server running on port ' + port);
+server.listen(port, () => {
+	console.log('Server running on port ' + port);
+});

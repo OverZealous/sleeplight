@@ -1,6 +1,7 @@
 const dataStore = require('./data-store');
 const Promise = require('bluebird');
 const ValidationError = require('./ValidationError');
+const sockets = require('./sockets');
 
 const STATES = [
 	{ id: 'off', label: 'Off', color: '#333' },
@@ -35,6 +36,8 @@ module.exports = {
 				console.log("turning on state ", lastState.label);
 
 				dataStore.set('light', lastState.id);
+
+				sockets.io.emit('light', lastState.id);
 
 				return lastState;
 			});

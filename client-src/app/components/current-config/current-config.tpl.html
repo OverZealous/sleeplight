@@ -1,9 +1,25 @@
 <div class="parent-mode">
-	parents
+	<div class="light"
+	     ng-repeat="parent in $ctrl.parents.parents">
+		<input type="radio"
+		       ng-model="$ctrl.parents.current"
+		       id="light-parent-{{ parent.id }}"
+		       value="{{ parent.id }}">
+		<label for="light-parent-{{ parent.id }}"
+		       ng-style="{ 'background-color': parent.color, 'box-shadow': '0 0 10px' + parent.color }"></label>
+	</div>
 </div>
 
 <div class="light-mode">
-	lights
+	<div class="light"
+	     ng-repeat="state in $ctrl.lights.states">
+		<input type="radio"
+		       ng-model="$ctrl.lights.current"
+		       id="light-state-{{ state.id }}"
+		       value="{{ state.id }}">
+		<label for="light-state-{{ state.id }}"
+		       ng-style="{ 'background-color': state.color, 'box-shadow': '0 0 10px' + state.color }"></label>
+	</div>
 </div>
 
 <div class="timers-mode">

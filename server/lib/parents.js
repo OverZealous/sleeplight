@@ -1,9 +1,10 @@
 const dataStore = require('./data-store');
 const Promise = require('bluebird');
 const ValidationError = require('./ValidationError');
+const sockets = require('./sockets');
 
 const PARENTS = [
-	{ id: 'mom', label: 'Mom', color: '#a4595e' },
+	{ id: 'mom', label: 'Mom', color: '#cb7598' },
 	{ id: 'dad', label: 'Dad', color: '#4355aa' },
 ];
 
@@ -33,6 +34,7 @@ module.exports = {
 				console.log("switching to parent ", lastParent.label);
 
 				dataStore.set('parent', lastParent.id);
+				sockets.io.emit('parent', lastParent.id);
 
 				return lastParent;
 			});

@@ -25,6 +25,7 @@
     "node-schedule": "^1.2.1",
     "nodemon": "^1.11.0",
     "normalize.css": "^7.0.0",
+    "socket.io": "^2.0.1",
     "wiring-pi": "^2.2.1"
   },
   "devDependencies": {
