@@ -1,13 +1,21 @@
 {
 	"parent": "mom",
 	"light": "off",
-	"timersEnabled": true,
-	"timers": [
-		{ "schedule": "0 0 7 * * 1-5", "state": "yellow" },
-		{ "schedule": "0 30 7 * * 1-5", "state": "green" },
-		{ "schedule": "0 0 8 * * 1-5", "state": "off" },
-		{ "schedule": "0 30 7 * * 6,7", "state": "yellow" },
-		{ "schedule": "0 30 8 * * 6,7", "state": "green" },
-		{ "schedule": "0 30 9 * * 6,7", "state": "off" }
-	]
+	"scheduleEnabled": true,
+	"schedule": {
+		"weekdays": {
+			"wake": "7:00",
+			"play": "7:30",
+			"off": "8:30",
+			"bedtime": "20:00",
+			"sleep": "20:30"
+		},
+		"weekends": {
+			"wake": "7:30",
+			"play": "8:30",
+			"off": "9:30",
+			"bedtime": "20:00",
+			"sleep": "20:30"
+		}
+	}
 }

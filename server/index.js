@@ -18,7 +18,7 @@ const router = express.Router();
 
 require('./api/parents').init(router);
 require('./api/lights').init(router);
-require('./api/timers').init(router);
+require('./api/schedule').init(router);
 
 app.use('/api', router);
 

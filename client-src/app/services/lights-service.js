@@ -7,7 +7,12 @@ export default angular.module('sleeplight.services.lights-service', [
 	.factory('lightsService', function($http, socketsService) {
 
 		let current = null;
-		let states = [];
+		let states = [
+			{ id: 'loading1', color: 'rgba(0,0,0,.7)' },
+			{ id: 'loading2', color: 'rgba(0,0,0,.5)' },
+			{ id: 'loading3', color: 'rgba(0,0,0,.3)' },
+			{ id: 'loading4', color: 'rgba(0,0,0,.1)' },
+		];
 
 		$http.get('/api/lights')
 			.then(resp => {

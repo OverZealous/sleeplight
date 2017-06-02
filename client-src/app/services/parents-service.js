@@ -7,7 +7,10 @@ export default angular.module('sleeplight.services.parents-service', [
 	.factory('parentsService', function($http, socketsService) {
 
 		let current = null;
-		let parents = [];
+		let parents = [
+			{ id: 'loading1', color: 'rgba(0,0,0,.5)' },
+			{ id: 'loading2', color: 'rgba(0,0,0,.3)' },
+		];
 
 		$http.get('/api/parents')
 			.then(resp => {

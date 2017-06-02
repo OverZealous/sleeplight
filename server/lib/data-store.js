@@ -35,6 +35,12 @@ Object.defineProperties(data, {
 			return save();
 		},
 	},
+	reset: {
+		value: (key) => {
+			const defaultData = require('../default-data.json');
+			return data.set(key, defaultData[key]);
+		},
+	}
 });
 
 module.exports = data;
