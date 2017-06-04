@@ -1,0 +1,214 @@
+@import '../../../styles/_variables';
+
+schedule-editor {
+	display: block;
+	max-width: 400px;
+	margin: 10px auto;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, 0) 10px);
+	padding: 20px 10px;
+
+	h2 {
+		font-size: 18px;
+		font-weight: 300;
+		margin: 0;
+		text-align: center;
+		opacity: .5;
+	}
+
+	.enabled-status {
+		margin-top: 20px;
+
+		display: flex;
+		align-items: center;
+
+		label {
+			position: relative;
+			flex: 1 1 50%;
+			margin: 0;
+
+			&:first-child {
+				text-align: right;
+				padding-right: 10px;
+			}
+			&:last-child {
+				padding-left: 10px;
+			}
+
+			input {
+				top: 0;
+				left: 0;
+				position: absolute;
+				width: 0;
+				height: 0;
+				-moz-appearance: none;
+				appearance: none;
+				opacity: 0;
+
+				+ span {
+					opacity: .5;
+					transition: all .15s ease-in-out;
+				}
+
+				&:checked + span {
+					opacity: 1;
+				}
+			}
+		}
+
+		.slider {
+			display: block;
+			position: relative;
+			flex: 0 1 auto;
+			width: 50px;
+			height: 20px;
+			background: darken(@border-color, 10%);
+			box-shadow: inset 0 1px 2px rgba(0, 0, 0, .2);
+			border-radius: 10px;
+			transition: all .15s ease-in-out;
+
+			.thumb {
+				position: absolute;
+				width: 14px;
+				height: 14px;
+				background-color: #FFF;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+				border-radius: 50%;
+				left: 3px;
+				top: 3px;
+				transition: all .15s ease-in-out;
+			}
+
+			&.enabled {
+				background-color: @brand-color;
+				.thumb {
+					left: 26px;
+				}
+			}
+		}
+	}
+
+	.day-tabs {
+		margin: 20px -10px 0;
+		padding-top: 4px;
+		overflow: hidden;
+		background: linear-gradient(to top, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, 0) 10px);
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.tab {
+			cursor: pointer;
+			flex: 0 1 auto;
+			padding: 6px 20px;
+			margin: 0 10px -1px;
+			border-radius: 6px 6px 0 0;
+			transition: all .15s ease-in-out;
+			color: fade(@text-color, 50%);
+
+			&:hover {
+				color: @text-color;
+			}
+
+			&.active {
+				color: @text-color;
+				background-color: @body-color;
+				box-shadow: 0 -2px 5px rgba(0, 0, 0, .4);
+			}
+		}
+	}
+
+	.events {
+		padding-top: 10px;
+		.event {
+			display: flex;
+			align-items: center;
+
+			margin: 14px 0;
+			padding: 0 20px;
+
+			> * {
+				flex: 0 1 auto;
+			}
+
+			.light {
+				display: block;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				margin-right: 10px;
+				opacity: .5;
+			}
+
+			.label {
+				flex: 1 1 auto;
+			}
+
+			input[type="time"] {
+				display: block;
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				appearance: none;
+				cursor: pointer;
+				line-height: 20px;
+				color: fade(@text-color, 75%);
+				background: transparent;
+				max-width: 100px;
+				text-align: right;
+				border-radius: 0;
+				overflow: hidden;
+				white-space: nowrap;
+				border: none;
+				padding: 2px 6px 1px;
+				border-bottom: 1px solid transparent;
+				transition: all .15s ease-in-out;
+
+				&:before, &:after {
+					display: none !important;
+				}
+
+				&:hover, &:focus {
+					color: @text-color;
+					border-bottom-color: @brand-color;
+				}
+
+				&::-webkit-clear-button {
+					-webkit-appearance: none !important;
+					display: none !important;
+				}
+				&::-webkit-inner-spin-button {
+					-webkit-appearance: none !important;
+					display: none !important;
+				}
+				&::-webkit-calendar-picker-indicator {
+					-webkit-appearance: none !important;
+					display: none !important;
+				}
+				&::-ms-clear {
+					-webkit-appearance: none !important;
+					display: none !important;
+				}
+			}
+		}
+	}
+}
+
+input[type="time"]::-webkit-clear-button {
+	-webkit-appearance: none !important;
+	display: none !important;
+}
+
+input[type="time"]::-webkit-inner-spin-button {
+	-webkit-appearance: none !important;
+	display: none !important;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+	-webkit-appearance: none !important;
+	display: none !important;
+}
+
+input[type="time"]::-ms-clear {
+	-webkit-appearance: none !important;
+	display: none !important;
+}

@@ -6,6 +6,20 @@ function sendScheduleData(res) {
 		schedule: sched.schedule,
 		days: sched.SCHEDULE_DAYS,
 		events: sched.SCHEDULE_EVENTS,
+		eventLights: sched.EVENTS_TO_LIGHTS_MAP,
+		labels: {
+			days: {
+				weekdays: 'Weekdays',
+				weekends: 'Weekends',
+			},
+			events: {
+				wake: 'Wake',
+				play: 'Play',
+				off: 'Off',
+				bedtime: 'Bedtime',
+				sleep: 'Sleep',
+			},
+		},
 	};
 	res.json(scheduleData);
 }

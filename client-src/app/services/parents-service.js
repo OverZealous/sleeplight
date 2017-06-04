@@ -1,10 +1,12 @@
 import socketsService from './sockets-service';
+import notificationService from './notification-service';
 
 export default angular.module('sleeplight.services.parents-service', [
 	socketsService.name,
+	notificationService.name,
 ])
 
-	.factory('parentsService', function($http, socketsService) {
+	.factory('parentsService', function($http, socketsService, notificationService) {
 
 		let current = null;
 		let parents = [
@@ -32,8 +34,8 @@ export default angular.module('sleeplight.services.parents-service', [
 					.then(() => {
 						current = parent;
 					})
-					.catch(() => {
-						// TODO: alert to an error
+					.catch((resp) => {
+						notificationService.error('Unable to update parent mode', resp);
 					});
 			},
 

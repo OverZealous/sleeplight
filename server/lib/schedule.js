@@ -103,7 +103,7 @@ function scheduleNextTimer() {
 // initialize the schedule
 let current = scheduleNextTimer();
 if(current) {
-	lights.setState(EVENTS_TO_LIGHTS_MAP[current]);
+	process.nextTick(() => lights.setState(EVENTS_TO_LIGHTS_MAP[current]));
 }
 
 
@@ -131,6 +131,7 @@ module.exports = {
 					return true;
 				});
 		} else if(!val && (dataStore.scheduleEnabled || nextTimer)) {
+			console.log('Disabling scheduled events');
 			clearTimeout(nextTimer);
 			promise = dataStore.set('scheduleEnabled', false)
 				.then(() => {

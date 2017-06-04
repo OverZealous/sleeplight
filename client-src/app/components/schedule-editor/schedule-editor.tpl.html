@@ -1,0 +1,37 @@
+<h2>Schedule</h2>
+<div class="enabled-status">
+	<label>
+		<input type="radio" ng-model="$ctrl.enabled" ng-value="false">
+		<span>Disabled</span>
+	</label>
+	<div class="slider" ng-class="{ enabled: $ctrl.enabled }"
+	     ng-click="$ctrl.enabled = !$ctrl.enabled">
+		<span class="thumb"></span>
+	</div>
+	<label>
+		<input type="radio" ng-model="$ctrl.enabled" ng-value="true">
+		<span>Enabled</span>
+	</label>
+</div>
+
+<div class="day-tabs">
+	<span ng-repeat="day in $ctrl.data.days"
+	      class="tab" ng-class="{ active: $ctrl.currentDay === day }"
+	      ng-bind="$ctrl.data.labels.days[day]"
+	      ng-click="$ctrl.currentDay = day"></span>
+</div>
+
+<div class="events">
+	<div ng-repeat="event in $ctrl.data.events"
+	     class="event">
+		<span class="light"
+		      ng-style="{ 'background-color': $ctrl.colorFor(event), 'box-shadow': '0 0 5px' + $ctrl.colorFor(event) }"></span>
+		<span class="label"
+		      ng-bind="$ctrl.data.labels.events[event]"></span>
+		<input type="time"
+		       ng-model="$ctrl.schedule[$ctrl.currentDay][event]" required
+		       ng-model-options="{ updateOn: 'blur' }"
+		       simple-time-display
+		       ng-change="$ctrl.updateEvent(event)">
+	</div>
+</div>
