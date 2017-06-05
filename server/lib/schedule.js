@@ -43,15 +43,23 @@ const EVENTS_TO_LIGHTS_MAP = {
 
 let nextTimer = null;
 
+function clearNextTimer() {
+	if(nextTimer) {
+		clearTimeout(nextTimer);
+		nextTimer = null;
+	}
+}
+
 /**
  * Schedules the next event timer, unless the schedule is currently disabled.
  * @returns {string} Whatever should be the current timer event
  */
 function scheduleNextTimer() {
-	if(!dataStore.scheduleEnabled) return;
-	if(nextTimer) {
-		clearTimeout(nextTimer);
+	if(!dataStore.scheduleEnabled) {
+		console.log('Schedule disabled.')
+		return null;
 	}
+	clearNextTimer();
 	const now = new Date();
 	const nowTime = now.getTime();
 	const then = new Date(now.getTime());
@@ -89,11 +97,14 @@ function scheduleNextTimer() {
 		}
 	}
 	if(!nextTimer) {
+		const tomorrow = new Date(Date.now() + (24 * 60 * 60 * 1000))
+		tomorrow.setSeconds(0);
+		tomorrow.setMilliseconds(0);
+		const tomorrowSchedule = dataStore.schedule[DAYS_MAP[tomorrow.getDay()]];
 		// next timer is morning, so schedule that
-		const timeParts = daySchedule.wake.split(':').map(Number);
-		then.setHours(timeParts[0]);
-		then.setMinutes(timeParts[1]);
-		let tomorrow = new Date(then.getTime() + 24 * 60 * 60 * 1000);
+		const timeParts = tomorrowSchedule.wake.split(':').map(Number);
+		tomorrow.setHours(timeParts[0]);
+		tomorrow.setMinutes(timeParts[1]);
 		_scheduleTimer('wake', tomorrow.getTime());
 	}
 
@@ -126,13 +137,13 @@ module.exports = {
 		if(val && (!dataStore.scheduleEnabled || !nextTimer)) {
 			promise = dataStore.set('scheduleEnabled', true)
 				.then(() => {
-					sockets.io.emit('scheduleEnabled', true);
 					scheduleNextTimer();
+					sockets.io.emit('scheduleEnabled', true);
 					return true;
 				});
 		} else if(!val && (dataStore.scheduleEnabled || nextTimer)) {
 			console.log('Disabling scheduled events');
-			clearTimeout(nextTimer);
+			clearNextTimer();
 			promise = dataStore.set('scheduleEnabled', false)
 				.then(() => {
 					sockets.io.emit('scheduleEnabled', false);
