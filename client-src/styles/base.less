@@ -3,12 +3,23 @@
    ========================================================================== */
 
 html {
-	background: @body-color;
+	background-color: @body-color-light;
+	//background-image: linear-gradient(to bottom, @body-color 0%, @body-color 50%, @body-color-light 100%);
+	background-image: radial-gradient(circle farthest-side at 50% 100%, @body-color-light 0%, @body-color 50%, @body-color 100%);
+	background-repeat: no-repeat;
 	color: @text-color;
 	font-size: 16px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	line-height: 1.4;
 	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	min-height: 100vh;
+	background-image: url("../public/images/city.svg");
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
 /*
@@ -107,7 +118,7 @@ textarea {
 		background-position: 50% 50%;
 		margin: 24px 0;
 		width: 100%;
-		height: 40px;
+		height: 36px;
 		> span {
 			display: none;
 		}

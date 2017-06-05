@@ -4,10 +4,10 @@ const ValidationError = require('./ValidationError');
 const sockets = require('./sockets');
 
 const STATES = [
-	{ id: 'off', label: 'Off', color: '#333' },
-	{ id: 'red', label: 'Red', color: '#A00' },
-	{ id: 'yellow', label: 'Yellow', color: '#CC4' },
-	{ id: 'green', label: 'Green', color: '#0A0' },
+	{ id: 'off', label: 'Off', color: '#000' },
+	{ id: 'red', label: 'Red', color: '#9c2522' },
+	{ id: 'yellow', label: 'Yellow', color: '#ccb747' },
+	{ id: 'green', label: 'Green', color: '#0e9c0e' },
 ];
 
 const STATE_MAP = {};
