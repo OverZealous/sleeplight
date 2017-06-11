@@ -16,10 +16,12 @@ if [ -z "$REMOTE" ]; then
 	# Push the client to remote
 	scp -r ./client/* "sleeplight:$SLEEPLIGHT_SERVER_PATH/client/"
 	# Run the remote deploy script
-	ssh sleeplight "cd $SLEEPLIGHT_SERVER_PATH; git pull; sudo ./deploy remote"
+	ssh sleeplight "cd $SLEEPLIGHT_SERVER_PATH; git pull; ./deploy remote"
 else
-	# REMOTE: copy over the Upstart config
-  	cp ./sleeplight.conf /etc/init/sleeplight.conf
+    # REMOTE: Install any package changes
+	npm install --production
+	# REMOTE: Copy over the Upstart config
+  	sudo cp ./sleeplight.conf /etc/init/sleeplight.conf
   	# REMOTE: Restart the server
-  	restart sleeplight
+  	sudo restart sleeplight
 fi
