@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eu
+set -o pipefail
 
 SLEEPLIGHT_SERVER_PATH=/home/pi/sleeplight
 REMOTE=${1:-}
 
 if [ -z "$REMOTE" ]; then
 	git push
-#	npm run build
+	npm run build
 	ssh sleeplight "rm -rf $SLEEPLIGHT_SERVER_PATH/client/*"
 	scp -r ./client/* "sleeplight:$SLEEPLIGHT_SERVER_PATH/client/"
 	ssh sleeplight "cd $SLEEPLIGHT_SERVER_PATH; git pull; ./deploy remote"

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eu
+set -o pipefail
 
 export PORT=80
 node server/index.js
