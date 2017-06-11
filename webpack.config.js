@@ -91,6 +91,16 @@ module.exports = (function makeWebpackConfig() {
 			template: './client-src/public/index.html',
 			inject: 'body'
 		}),
+		new HtmlWebpackPlugin({
+			filename: '404.html',
+			template: './client-src/public/404.html',
+			inject: 'body'
+		}),
+		new HtmlWebpackPlugin({
+			filename: '500.html',
+			template: './client-src/public/500.html',
+			inject: 'body'
+		}),
 	];
 
 	if(isProd) {
@@ -102,7 +112,7 @@ module.exports = (function makeWebpackConfig() {
 			new CopyWebpackPlugin([
 					{ from: path.resolve(__dirname, './client-src/public') }
 				],
-				{ ignore: ['index.html'] })
+				{ ignore: ['index.html', '404.html', '500.html'] })
 		);
 	}
 

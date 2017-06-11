@@ -90,6 +90,20 @@ textarea {
 	resize: vertical;
 }
 
+
+a[href] {
+	color: @link-color;
+	text-decoration: none;
+	&:visited {
+		color: @link-color;
+	}
+	&:hover, &:focus, &:active {
+		color: @link-color-hover;
+		text-decoration: underline;
+	}
+}
+
+
 .clearfix() {
 	&:before,
 	&:after {
