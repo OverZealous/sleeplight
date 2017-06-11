@@ -7,12 +7,19 @@ SLEEPLIGHT_SERVER_PATH=/home/pi/sleeplight
 REMOTE=${1:-}
 
 if [ -z "$REMOTE" ]; then
+	# Push up any local changes
 	git push
+	# build the client
 	npm run build
+	# Clean up the remote client
 	ssh sleeplight "rm -rf $SLEEPLIGHT_SERVER_PATH/client/*"
+	# Push the client to remote
 	scp -r ./client/* "sleeplight:$SLEEPLIGHT_SERVER_PATH/client/"
-	ssh sleeplight "cd $SLEEPLIGHT_SERVER_PATH; git pull; ./deploy remote"
+	# Run the remote deploy script
+	ssh sleeplight "cd $SLEEPLIGHT_SERVER_PATH; git pull; sudo ./deploy remote"
 else
+	# REMOTE: copy over the Upstart config
   	cp ./sleeplight.conf /etc/init/sleeplight.conf
-  	sudo restart sleeplight
+  	# REMOTE: Restart the server
+  	restart sleeplight
 fi
